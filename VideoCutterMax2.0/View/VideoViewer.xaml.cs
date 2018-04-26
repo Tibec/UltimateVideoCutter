@@ -24,6 +24,7 @@ namespace VideoCutterMax2.View
     {
 
         TimeSpan _position;
+        public static TimeSpan currentTime; // need to be cleaning because it is so dirty
         DispatcherTimer _timer = new DispatcherTimer();
         private bool _draggingSlider = false;
 
@@ -44,6 +45,7 @@ namespace VideoCutterMax2.View
             if ( _draggingSlider == false)
             {
                 videoSlider.Value = mainVideo.Position.TotalSeconds;
+                currentTime = mainVideo.Position;
                 this.ShowTimer();
             }
            
@@ -139,5 +141,45 @@ namespace VideoCutterMax2.View
          */
 
 
+
+
+        
+
+
+
+
     }
+    /*
+     * To bind the mainVideo.Position for the VideoViewerViewModel
+     */
+
+  /*  public class MediaElementExtension
+    {
+
+
+        public static TimeSpan GetBindablePosition(DependencyObject obj)
+        {
+            return (TimeSpan)obj.GetValue(BindablePositionProperty);
+        }
+
+        public static void SetBindablePosition(DependencyObject obj, double value)
+        {
+            obj.SetValue(BindablePositionProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for BindablePosition.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BindablePositionProperty =
+            DependencyProperty.RegisterAttached("BindablePosition", typeof(TimeSpan), typeof(MediaElementExtension), new PropertyMetadata(new TimeSpan(), BindablePositionChangedCallback));
+
+        private static void BindablePositionChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            MediaElement mediaElement = d as MediaElement;
+            if (mediaElement == null) return;
+
+            mediaElement.Position = (TimeSpan)e.NewValue;
+            System.Diagnostics.Debug.WriteLine(e.NewValue);
+        }
+
+
+    } */
 }

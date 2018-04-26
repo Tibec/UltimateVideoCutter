@@ -12,8 +12,9 @@
     </UserControl.DataContext>
 
     <Grid>
-        <MediaElement x:Name="mainVideo" Margin="0" LoadedBehavior="Manual" Source="{Binding CurrentVideo.Uri}" MediaOpened="Element_MediaOpened"/>
-        
+        <MediaElement x:Name="mainVideo" Margin="0" LoadedBehavior="Manual" Source="{Binding CurrentVideo.Uri}" MediaOpened="Element_MediaOpened"  />
+        <!-- local:MediaElementExtension.BindablePosition="{Binding Timer, Mode=TwoWay}" -->
+
 
         <Grid VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
@@ -27,9 +28,9 @@
             <Button x:Name="videoPlay" Content="Play" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50" Click="videoPlay_click"/>
             <Slider x:Name="videoSlider" Thumb.DragStarted="StartDrag"  Thumb.DragCompleted="EndDrag" VerticalAlignment="Top" Grid.Column="1" TickFrequency="1"  MouseMove="HoverSlider" ValueChanged="ActualizeTime"/>
 
-            <TextBlock x:Name="videoTextTimer" Text="00.00.00 / 00.00.00" Background="white" Height="auto" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0" MinWidth="0" Padding="10,4" HorizontalAlignment="Left" FontSize="8"/>
+            <TextBlock x:Name="videoTextTimer" Text="00.00.00 / 00.00.00" Background="white" Height="auto" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0" MinWidth="0" Padding="10,4" HorizontalAlignment="Left" FontSize="8" />
             <Button x:Name="videoBeginButton" IsEnabled="True" Content="Begin" HorizontalAlignment="Right" VerticalAlignment="Top" Width="50" Grid.Column="3" Command="{Binding AddBeginCommand}" />
-            <Button x:Name="videoEndButton" IsEnabled="False" Content="End" HorizontalAlignment="Right" VerticalAlignment="Top" Width="50" Grid.Column="4"/>
+            <Button x:Name="videoEndButton" IsEnabled="False" Content="End" HorizontalAlignment="Right" VerticalAlignment="Top" Width="50" Grid.Column="4" Command="{Binding AddEndCommand}" />
             
 
         </Grid>

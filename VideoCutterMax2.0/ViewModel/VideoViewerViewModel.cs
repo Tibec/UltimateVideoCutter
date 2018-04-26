@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VideoCutterMax2.Model;
-using VideoCutterMax2.View;
+using VideoCutterMax2.View; //to get the VideoViewer.currentTime
 
 namespace VideoCutterMax2.ViewModel
 {
@@ -24,6 +24,9 @@ namespace VideoCutterMax2.ViewModel
         {
             selectedRow = -1;
         }
+
+        // mainVideo.Position , set with MediaElementExtension and the attached property
+        
 
         //constructeur
         public VideoViewerViewModel()
@@ -58,14 +61,13 @@ namespace VideoCutterMax2.ViewModel
         }
 
 
-
         public RelayCommand AddBeginCommand { get; set; }
         private void AddBegin()
         {
             if(selectedRow != -1 && selectedRow < Cuts.GetCollection().Count())
             {
-                VideoViewer test = new VideoViewer();
-                Cuts.GetCollection().ElementAt<Cut>(selectedRow).Begin = test.mainVideo.Position.ToString().Substring(0, 8);
+                //needs to be improve (the static public currentTime)
+                Cuts.GetCollection().ElementAt<Cut>(selectedRow).Begin = VideoViewer.currentTime.ToString().Substring(0, 8);
             }
             
         }
@@ -73,7 +75,10 @@ namespace VideoCutterMax2.ViewModel
         public RelayCommand AddEndCommand { get; set; }
         private void AddEnd()
         {
-            Cuts.GetCollection().ElementAt<Cut>(selectedRow).End = "00.00.00";
+            if (selectedRow != -1 && selectedRow < Cuts.GetCollection().Count())
+            {
+                Cuts.GetCollection().ElementAt<Cut>(selectedRow).End = VideoViewer.currentTime.ToString().Substring(0, 8);
+            }
         }
 
 
