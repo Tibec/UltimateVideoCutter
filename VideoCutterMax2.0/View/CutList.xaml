@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="VideoCutterMax2.View.CutList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mv="clr-namespace:VideoCutterMax2.ViewModel"
+      xmlns:local="clr-namespace:VideoCutterMax2.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      >
+
+    <UserControl.DataContext>
+        <vm:CutListViewModel xmlns:vm="clr-namespace:VideoCutterMax2.ViewModel" />
+    </UserControl.DataContext>
+    <Grid>
+
+        <Button x:Name="listAdd" Content="Ajout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="1" Command="{Binding AddCommand}"/>
+        <Button x:Name="listDelete" Content="Retirer" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" Command="{Binding DelCommand}" />
+
+        <ListBox x:Name="cutList"  SelectionChanged="SelectionChanged" Grid.IsSharedSizeScope="True" Margin="12.2,31,6,0" Padding="0" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Center" UseLayoutRounding="False" ItemsSource="{Binding CutsList}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="327">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition  />
+                            <ColumnDefinition  />
+                            <ColumnDefinition  />
+
+
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}" Grid.Column="0" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding Begin}"  Grid.Column="1" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding End}"  Grid.Column="2" HorizontalAlignment="Center"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+           
+        </ListBox>
+    </Grid>
+</UserControl>

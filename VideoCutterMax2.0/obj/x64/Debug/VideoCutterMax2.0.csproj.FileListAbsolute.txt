@@ -1,0 +1,6 @@
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x64\Debug\VideoCutterMax2.0.csprojResolveAssemblyReference.cache
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x64\Debug\MainWindow.g.cs
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x64\Debug\App.g.cs
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x64\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x64\Debug\VideoCutterMax2.0_MarkupCompile.cache
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x64\Debug\VideoCutterMax2.0_MarkupCompile.lref
