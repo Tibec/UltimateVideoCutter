@@ -15,14 +15,14 @@ namespace VideoCutterMax2.Model
             get { return _name; }
             set { Set("Name", ref _name, value); }
         }
-        private string _begin;
-        public string Begin
+        private TimeSpan _begin;
+        public TimeSpan Begin
         {
             get { return _begin; }
             set { Set("Begin", ref _begin, value); }
         }
-        private string _end;
-        public string End
+        private TimeSpan _end;
+        public TimeSpan End
         {
             get { return _end; }
             set { Set("End", ref _end, value); }

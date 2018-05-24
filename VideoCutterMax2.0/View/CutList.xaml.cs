@@ -23,6 +23,8 @@ namespace VideoCutterMax2.View
     /// </summary>
     public partial class CutList : UserControl
     {
+
+        private int _noOfErrorsOnScreen = 0;
         public CutList()
         {
             InitializeComponent();
@@ -37,7 +39,7 @@ namespace VideoCutterMax2.View
            }
         private void SelectionChanged(object sender, RoutedEventArgs e)
         {
-            listDelete.IsEnabled = true;
+            
             /* 
              * Message to emit
              */
@@ -46,10 +48,45 @@ namespace VideoCutterMax2.View
             ListIndex listIndex = new ListIndex();
             listIndex.setValue(cutList.SelectedIndex);
             Messenger.Default.Send(listIndex);
-            //send a message to the videoViewer to enable button
-            //Messenger.Default.Send<int>(cutList.SelectedIndex);
+
         }
 
+
+        private void Save_Error(object sender, ValidationErrorEventArgs e)
+        {
+
+            System.Diagnostics.Debug.WriteLine("In save Error");
+
+            if (e.Action == ValidationErrorEventAction.Added)
+                _noOfErrorsOnScreen++;
+            else
+                _noOfErrorsOnScreen--;
+
+            if (_noOfErrorsOnScreen == 0)
+            {
+                bool toSent = true;
+                NotificationMessage newMessage = new NotificationMessage(toSent, "ExportEnabling");
+                Messenger.Default.Send(newMessage);
+
+            }
+            else
+            {
+                bool toSent = false;
+                NotificationMessage newMessage = new NotificationMessage(toSent, "ExportEnabling");
+                Messenger.Default.Send(newMessage);
+            }
+
+        }
+
+        //ma,age the select even if we select a text box
+        protected void SelectCurrentItem(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            ListBoxItem item = (ListBoxItem)sender;
+            item.IsSelected = true;
+
+            //and send the new selection
+           
+        }
 
     }
 }

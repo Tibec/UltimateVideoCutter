@@ -19,10 +19,14 @@ namespace VideoCutterMax2.ViewModel
         private void SetSelectedRow(ListIndex li)
         {
             selectedRow = li.getValue();
+            BeginEnable = true;
+            EndEnable = true;
         }
-        private void ResetSelectedRow()
+        private void ResetSelectedRow(MessengBool b)
         {
             selectedRow = -1;
+            BeginEnable = false;
+            EndEnable = false;
         }
 
         // mainVideo.Position , set with MediaElementExtension and the attached property
@@ -33,18 +37,22 @@ namespace VideoCutterMax2.ViewModel
         {
             Cuts = CutDatabase.GetCutDatabase();
 
-            CurrentVideo = new Video(new Uri(@"D:\Utilisateurs\Raphael\Vidéos\GoPro_6.mp4"), "Test");
+        
            
 
             AddBeginCommand = new RelayCommand(() => AddBegin());
             AddEndCommand = new RelayCommand(() => AddEnd());
 
             Messenger.Default.Register<ListIndex>(this, SetSelectedRow);
-           
+            Messenger.Default.Register<MessengBool>(this, ResetSelectedRow);
+            Messenger.Default.Register<Video>(this, ResetVideo);
+            
+
         }
 
 
         /* 
+         * Variables
          */
 
         private Video _currentVideo = null;
@@ -59,15 +67,46 @@ namespace VideoCutterMax2.ViewModel
             get { return _cuts; }
             set { Set("Cuts", ref _cuts, value); }
         }
+        private Boolean _beginEnable = false;
+        public Boolean BeginEnable
+        {
+            get { return _beginEnable; }
+            set { Set("BeginEnable", ref _beginEnable, value); }
+        }
+        private Boolean _endEnable = false;
+        public Boolean EndEnable
+        {
+            get { return _endEnable; }
+            set { Set("EndEnable", ref _endEnable, value); }
+        }
+        private Boolean _isVideoLoaded = false;
+        public Boolean IsVideoLoaded
+        {
+            get { return _isVideoLoaded; }
+            set { Set("IsVideoLoaded", ref _isVideoLoaded, value); }
+        }
 
+        /*
+         * Functions
+         */
+        private void ResetVideo(Video v)
+        {
+            Cuts = CutDatabase.GetCutDatabase();
+            Cuts.VideoPath = v.Uri;
+            CurrentVideo = v;
+            Cuts.ResetCutsDatabase();
+            IsVideoLoaded = true;
+        }
 
+        // relay command
         public RelayCommand AddBeginCommand { get; set; }
         private void AddBegin()
         {
             if(selectedRow != -1 && selectedRow < Cuts.GetCollection().Count())
             {
                 //needs to be improve (the static public currentTime)
-                Cuts.GetCollection().ElementAt<Cut>(selectedRow).Begin = VideoViewer.currentTime.ToString().Substring(0, 8);
+                Cuts.GetCollection().ElementAt<Cut>(selectedRow).Begin = new TimeSpan(0,VideoViewer.currentTime.Hours, VideoViewer.currentTime.Minutes, VideoViewer.currentTime.Seconds);
+                
             }
             
         }
@@ -77,7 +116,8 @@ namespace VideoCutterMax2.ViewModel
         {
             if (selectedRow != -1 && selectedRow < Cuts.GetCollection().Count())
             {
-                Cuts.GetCollection().ElementAt<Cut>(selectedRow).End = VideoViewer.currentTime.ToString().Substring(0, 8);
+                Cuts.GetCollection().ElementAt<Cut>(selectedRow).End = new TimeSpan(0, VideoViewer.currentTime.Hours, VideoViewer.currentTime.Minutes, VideoViewer.currentTime.Seconds);
+                
             }
         }
 

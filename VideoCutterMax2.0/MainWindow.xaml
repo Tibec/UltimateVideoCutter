@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Grid x:Name="grid" Margin="10">
+    <Grid x:Name="grid" Margin="10" Background="LightGray" >
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition  />
             <RowDefinition Height="198"/>
         </Grid.RowDefinitions>
@@ -16,15 +17,18 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="344.8"/>
         </Grid.ColumnDefinitions>
-        
 
-        <local:VideoViewer Grid.Column="0"  Grid.Row="0" Grid.ColumnSpan="1"  />
+
+        <!-- MenuBar -->
+        <local:MenuBar Grid.Column="0"  Grid.Row="0" Grid.ColumnSpan="2" />
+        <!-- VideoViewer -->
+        <local:VideoViewer Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="1" Background="#FFFFFF" BorderThickness="1" BorderBrush="Gray" Margin="1,1,1,1" />
 
         <!-- List -->
-        <local:CutList Grid.Column="1"  Grid.Row="0" Grid.ColumnSpan="1"  />
+        <local:CutList Grid.Column="1"  Grid.Row="1" Grid.ColumnSpan="1" Background="#FFFFFF" BorderThickness="1" BorderBrush="Gray" Margin="1,1,1,1" />
 
-        <!-- VideoViewer -->
-        <local:MiniatureGestion Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="1"  />
+        <!-- Miniature -->
+        <local:MiniatureGestion Grid.Column="0"  Grid.Row="2" Grid.ColumnSpan="1" Background="#FFFFFF" BorderThickness="1" BorderBrush="Gray" Margin="1,1,1,1" />
 
 
 

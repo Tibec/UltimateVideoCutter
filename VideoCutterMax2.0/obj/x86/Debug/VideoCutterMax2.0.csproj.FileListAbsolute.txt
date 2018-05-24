@@ -35,3 +35,5 @@ C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\View\VideoViewer.g.cs
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\View\MiniatureGestion.baml
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\View\VideoViewer.baml
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\View\MenuBar.g.cs
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\View\MenuBar.baml

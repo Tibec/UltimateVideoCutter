@@ -12,10 +12,10 @@ namespace VideoCutterMax2.Model
 {
     class CutDatabase
     {
-
+        public Uri VideoPath { get; set; }
         static private CutDatabase instance;
-        private ObservableCollection<Cut> _cuts; // en attendant de trouver comment la rendre priver (binding dans le front ne marche pas via fonction)
-
+        private ObservableCollection<Cut> _cuts;
+       
 
         private CutDatabase()
         {
@@ -59,6 +59,27 @@ namespace VideoCutterMax2.Model
         public void RemoveAt(int i)
         {
             instance._cuts.RemoveAt(i);
+        }
+
+        public void ResetCutsDatabase()
+        {
+            instance._cuts.Clear();
+        }
+        public Cut GetAt(int i)
+        {
+            return instance._cuts[i];
+        }
+
+        public bool IsEmpty()
+        {
+            if(instance._cuts.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

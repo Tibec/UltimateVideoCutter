@@ -13,11 +13,15 @@
         <vm:CutListViewModel xmlns:vm="clr-namespace:VideoCutterMax2.ViewModel" />
     </UserControl.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition  />
+        </Grid.RowDefinitions>
 
-        <Button x:Name="listAdd" Content="Ajout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="1" Command="{Binding AddCommand}"/>
-        <Button x:Name="listDelete" Content="Retirer" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" Command="{Binding DelCommand}" />
+        <Button x:Name="listAdd" Content="Ajout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Row="0" Command="{Binding AddCommand}"/>
+        <Button x:Name="listDelete" Content="Retirer" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Grid.Row="0" IsEnabled="{Binding DelEnable}" Command="{Binding DelCommand}" />
 
-        <ListBox x:Name="cutList"  SelectionChanged="SelectionChanged" Grid.IsSharedSizeScope="True" Margin="12.2,31,6,0" Padding="0" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Center" UseLayoutRounding="False" ItemsSource="{Binding CutsList}">
+        <ListBox x:Name="cutList"  Grid.Row ="0" SelectionChanged="SelectionChanged" Grid.IsSharedSizeScope="True" Margin="12.2,31,6,10" Padding="0" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Center" UseLayoutRounding="False" ItemsSource="{Binding CutsList}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Width="327">
@@ -25,16 +29,24 @@
                             <ColumnDefinition  />
                             <ColumnDefinition  />
                             <ColumnDefinition  />
-
-
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" Grid.Column="0" HorizontalAlignment="Center"></TextBlock>
-                        <TextBlock Text="{Binding Begin}"  Grid.Column="1" HorizontalAlignment="Center"></TextBlock>
-                        <TextBlock Text="{Binding End}"  Grid.Column="2" HorizontalAlignment="Center"></TextBlock>
+                        <TextBox Text="{Binding Name, ValidatesOnDataErrors=True}" Grid.Column="0" HorizontalAlignment="Stretch" Validation.Error="Save_Error" ></TextBox>
+                        <TextBox x:Name="Begin"  Text="{Binding Begin}"  Grid.Column="1" HorizontalAlignment="Center" ToolTip="Respectez le format 00:00:00" Validation.Error="Save_Error"></TextBox>
+                        <TextBox x:Name="End" Text="{Binding End}"  Grid.Column="2" HorizontalAlignment="Center" ToolTip="Respectez le format 00:00:00" Validation.Error="Save_Error"></TextBox>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-           
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <EventSetter Event="PreviewGotKeyboardFocus" Handler="SelectCurrentItem"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
         </ListBox>
+        <Button x:Name="Exporter" Content="Exporter" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Grid.Row="1" IsEnabled="{Binding IsExportable}" Command="{Binding ExportCommand}" >
+        </Button>
+
+
     </Grid>
 </UserControl>

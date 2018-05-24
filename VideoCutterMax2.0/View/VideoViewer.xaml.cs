@@ -56,6 +56,8 @@ namespace VideoCutterMax2.View
 
             if ((string)videoPlay.Content == "Play")
             {
+                //debug video not loaded for the first one
+                mainVideo.LoadedBehavior = System.Windows.Controls.MediaState.Manual;
                 mainVideo.Play();
                 videoPlay.Content = "Pause";
             }
@@ -82,8 +84,8 @@ namespace VideoCutterMax2.View
          */
         private void ShowTimer()
         {
-
-            if (mainVideo.NaturalDuration != null)
+         
+            if (mainVideo.NaturalDuration != Duration.Automatic)
             {
                 videoTextTimer.Text = mainVideo.Position.ToString().Substring(0, 8) + "/" + mainVideo.NaturalDuration.ToString().Substring(0, 8);
             }
@@ -92,7 +94,7 @@ namespace VideoCutterMax2.View
         private void ShowTimer(TimeSpan e)
         {
 
-            if (mainVideo.NaturalDuration != null)
+            if (mainVideo.NaturalDuration != Duration.Automatic)
             {
                 videoTextTimer.Text = e.ToString().Substring(0, 8) + "/" + mainVideo.NaturalDuration.ToString().Substring(0, 8);
             }

@@ -112,9 +112,11 @@
     <Compile Include="Model\Cut.cs" />
     <Compile Include="Model\CutDatabase.cs" />
     <Compile Include="Model\ListIndex.cs" />
+    <Compile Include="Model\MessengBool.cs" />
     <Compile Include="Model\Video.cs" />
     <Compile Include="ViewModel\CutListViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MenuBarViewModel.cs" />
     <Compile Include="ViewModel\MiniatureGestionViewModel.cs" />
     <Compile Include="ViewModel\VideoViewerViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -123,6 +125,9 @@
     </Compile>
     <Compile Include="View\CutList.xaml.cs">
       <DependentUpon>CutList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MenuBar.xaml.cs">
+      <DependentUpon>MenuBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MiniatureGestion.xaml.cs">
       <DependentUpon>MiniatureGestion.xaml</DependentUpon>
@@ -147,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CutList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MenuBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
