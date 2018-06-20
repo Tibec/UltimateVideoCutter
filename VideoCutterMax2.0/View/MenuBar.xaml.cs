@@ -11,10 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Messaging;
 using VideoCutterMax2.Model;
-using Microsoft.Win32;
+
 
 namespace VideoCutterMax2.View
 {
@@ -33,12 +35,29 @@ namespace VideoCutterMax2.View
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true) {
-                
-                Video video = new Video(new Uri(openFileDialog.FileName),"New Video");
+            openFileDialog.Filter = "Fichiers vidéo (*.mp4)| *.mp4";
+            if (openFileDialog.ShowDialog() == true)
+            {
+
+                Video video = new Video(new Uri(openFileDialog.FileName), "New Video");
                 Messenger.Default.Send(video);
             }
-            
+
+        }
+
+        private void btnChangeFolder_Click(object sender, RoutedEventArgs e)
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = "C:\\Users";
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+              
+
+                NotificationMessage newMessage = new NotificationMessage(dialog.FileName, "newCharacterFolder");
+                Messenger.Default.Send(newMessage);
+            }
+
         }
     }
 }

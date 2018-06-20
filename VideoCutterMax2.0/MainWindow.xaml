@@ -22,7 +22,7 @@
         <!-- MenuBar -->
         <local:MenuBar Grid.Column="0"  Grid.Row="0" Grid.ColumnSpan="2" />
         <!-- VideoViewer -->
-        <local:VideoViewer Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="1" Background="#FFFFFF" BorderThickness="1" BorderBrush="Gray" Margin="1,1,1,1" />
+        <local:VideoViewer Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="1" Background="#FFFFFF" BorderThickness="1" BorderBrush="Gray" Margin="1,1,1,1" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
         <!-- List -->
         <local:CutList Grid.Column="1"  Grid.Row="1" Grid.ColumnSpan="1" Background="#FFFFFF" BorderThickness="1" BorderBrush="Gray" Margin="1,1,1,1" />

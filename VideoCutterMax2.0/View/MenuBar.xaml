@@ -18,6 +18,7 @@
         <Menu DockPanel.Dock="Top" Background="LightGray">
             <MenuItem Header="_Fichier">
                 <MenuItem Header="_Ouvrir vidéo" Click="btnOpenFile_Click" />
+                <MenuItem Header="_Changer de dossier de personnages"  Click="btnChangeFolder_Click"/>
                 <MenuItem Header="_Save"/>
             </MenuItem>
             <MenuItem Header="_Outils">

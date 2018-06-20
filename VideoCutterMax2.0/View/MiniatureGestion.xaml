@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mv="clr-namespace:VideoCutterMax2.ViewModel"
              xmlns:local="clr-namespace:VideoCutterMax2.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <vm:MiniatureGestionViewModel xmlns:vm="clr-namespace:VideoCutterMax2.ViewModel" />
+    </UserControl.DataContext>
+    
     <Grid>
         <Grid x:Name="miniatureGestion"  Grid.Row="1" Margin="5" >
             <Grid.RowDefinitions>
@@ -17,14 +23,18 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <!-- 0/0 -->
-            <Image Source="D:\Utilisateurs\Raphael\Images\test.jpg"/>
+            <Image x:Name="Preview" />
+            
             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Rendu" VerticalAlignment="Bottom" FontSize="16"/>
+            <Button Command="{Binding ResetPreviewCommand}" IsEnabled="{Binding RefreshButton}"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="15" Grid.Row="0" Margin="0 0 5 0" Background="Transparent">
+                <Image x:Name="RefreshButton" ></Image>
+            </Button>
             <!-- 1/0 -->
-            <Image Source="D:\Utilisateurs\Raphael\Images\test.jpg" Grid.Row="1"/>
-            <Button Content="Fond" Command="" CommandParameter="{Binding }" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="75" Grid.Row="1"/>
+            <Image x:Name="Background" Grid.Row="1"/>
+            <Button Content="Fond" Click="btnOpenBack_Click" CommandParameter=""  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="75" Grid.Row="1" />
 
             <!-- 0/1 -->
-            <Grid Grid.Column="1" >
+            <Grid Grid.Column="1" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition />
@@ -33,19 +43,35 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Joueur 1" VerticalAlignment="Top"/>
-                <ListBox x:Name="thumbListPlayer1" ItemsSource="{Binding }" Margin="0,0,5,0" Grid.Row="1">
-                    <ListBoxItem>Link</ListBoxItem>
-                    <ListBoxItem>Mario</ListBoxItem>
-                    <ListBoxItem>Samus</ListBoxItem>
-                    <ListBoxItem>Wario</ListBoxItem>
+                <TextBox TextWrapping="Wrap" Text="{Binding TeamOne.TeamName}" VerticalAlignment="Top" Margin="0,0,5,0"/>
+                <ListBox x:Name="thumbListTeam1" ItemsSource="{Binding DbCharOne}" Margin="0,0,5,0" Grid.Row="1" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition  />
+                                    <ColumnDefinition  />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox  Grid.Column="0" IsChecked="{Binding IsPlayed}"></CheckBox>
+                                <TextBlock Grid.Column="1" Text="{Binding Name}"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Joueur 2" VerticalAlignment="Top" Grid.Column="1"/>
-                <ListBox x:Name="thumbListPlayer2" Grid.Column="1" Margin="5,0,0,0" Grid.Row="1">
-                    <ListBoxItem>Link</ListBoxItem>
-                    <ListBoxItem>Mario</ListBoxItem>
-                    <ListBoxItem>Samus</ListBoxItem>
-                    <ListBoxItem>Wario</ListBoxItem>
+                <TextBox TextWrapping="Wrap" Text="{Binding TeamTwo.TeamName}" VerticalAlignment="Top" Grid.Column="1" Margin="5,0,0,0"/>
+                <ListBox x:Name="thumbListTeam2" ItemsSource="{Binding DbCharTwo}" Grid.Column="1" Margin="5,0,0,0" Grid.Row="1">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition  />
+                                    <ColumnDefinition  />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Grid.Column="0" IsChecked="{Binding IsPlayed}"></CheckBox>
+                                <TextBlock Grid.Column="1" Text="{Binding Name}"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
 
 
@@ -56,6 +82,6 @@
             <!-- 1/1 -->
 
         </Grid>
-
+       
     </Grid>
 </UserControl>

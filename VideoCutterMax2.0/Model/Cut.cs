@@ -28,5 +28,13 @@ namespace VideoCutterMax2.Model
             set { Set("End", ref _end, value); }
         }
 
+        private Miniature _thumbnail;
+        public Miniature Thumbnail
+        {
+            get { return _thumbnail; }
+            set { Set("Thumbnail", ref _thumbnail, value); }
+        }
+
+
     }
 }

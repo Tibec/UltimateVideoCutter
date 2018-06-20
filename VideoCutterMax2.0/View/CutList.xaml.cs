@@ -16,6 +16,7 @@ using GalaSoft.MvvmLight.Messaging;
 using VideoCutterMax2.Model;
 
 
+
 namespace VideoCutterMax2.View
 {
     /// <summary>
@@ -87,6 +88,6 @@ namespace VideoCutterMax2.View
             //and send the new selection
            
         }
-
+        
     }
 }

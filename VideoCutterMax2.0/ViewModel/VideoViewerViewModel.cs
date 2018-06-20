@@ -24,9 +24,13 @@ namespace VideoCutterMax2.ViewModel
         }
         private void ResetSelectedRow(MessengBool b)
         {
-            selectedRow = -1;
-            BeginEnable = false;
-            EndEnable = false;
+            if (b.DisableButton)
+            {
+                selectedRow = -1;
+                BeginEnable = false;
+                EndEnable = false;
+            }
+            
         }
 
         // mainVideo.Position , set with MediaElementExtension and the attached property
