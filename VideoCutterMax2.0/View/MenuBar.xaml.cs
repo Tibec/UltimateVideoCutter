@@ -39,6 +39,9 @@ namespace VideoCutterMax2.View
             if (openFileDialog.ShowDialog() == true)
             {
 
+                MessengBool reset = new MessengBool();
+                reset.DisableButton = true;
+                Messenger.Default.Send(reset);
                 Video video = new Video(new Uri(openFileDialog.FileName), "New Video");
                 Messenger.Default.Send(video);
             }

@@ -9,7 +9,6 @@ C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\GalaSoft.MvvmLight.Extras.xml
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\GalaSoft.MvvmLight.Platform.pdb
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\GalaSoft.MvvmLight.Platform.xml
-C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\VideoCutterMax2.0.csprojResolveAssemblyReference.cache
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\App.g.cs
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\App.baml
@@ -44,3 +43,4 @@ C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\Microsoft.WindowsAPICodePack.Shell.dll
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\Microsoft.WindowsAPICodePack.xml
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\VideoCutterMax2.0.csprojResolveAssemblyReference.cache

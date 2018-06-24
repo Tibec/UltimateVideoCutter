@@ -29,11 +29,7 @@ namespace VideoCutterMax2.View
     {
 
         public WriteableBitmap image;
-        public BitmapSource image_src;
-        
-
-
-        public int[] mult = {1,1};
+     
 
         public MiniatureGestion()
         {
@@ -55,8 +51,8 @@ namespace VideoCutterMax2.View
             var temp_image = new BitmapImage(new Uri(resourcesFolderPath + "\\default.png"));
             image = new WriteableBitmap(temp_image);
           
-            Preview.Source = image;
-            Background.Source = image;
+           // Preview.Source = image;
+           // Background.Source = image;
         }
 
 
@@ -68,41 +64,9 @@ namespace VideoCutterMax2.View
             image = imgs.image;
            
             Preview.Source = image;
-            mult = imgs.mult;
+           
         }
-        private void btnOpenBack_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Fichiers image (*.jpg, *.png)| *.jpg; *.png";
-            if (openFileDialog.ShowDialog() == true) { 
-                if (ValidFile(openFileDialog.FileName, 1920, 1080))
-                {
-
-                    var temp_back = new BitmapImage(new Uri(openFileDialog.FileName));
-                    var back = new WriteableBitmap(temp_back);
-                    Background.Source = temp_back;
-
-                    NotificationMessage newMessage = new NotificationMessage(openFileDialog.FileName, "newBackGround");
-                    Messenger.Default.Send(newMessage);
-                }
-                else
-                {
-                    MessageBox.Show("La taille de l'image doit être supérieur à une résolution de 1920x1080");
-                }
-            }
-
-        }
-
-        private bool ValidFile(string filename, int limitWidth, int limitHeight)
-        {
-            var fileSizeInBytes = new FileInfo(filename).Length;
-            using (var img = new Bitmap(filename))
-            {
-                if (img.Width < limitWidth || img.Height < limitHeight) return false;
-            }
-
-            return true;
-        }
+       
 
     }
 }

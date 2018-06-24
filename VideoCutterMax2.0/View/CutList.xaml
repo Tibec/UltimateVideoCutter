@@ -24,11 +24,11 @@
         <ListBox x:Name="cutList"  Grid.Row ="0" SelectionChanged="SelectionChanged" Grid.IsSharedSizeScope="True" Margin="12.2,31,6,10" Padding="0" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Center" UseLayoutRounding="False" ItemsSource="{Binding CutsList}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="327">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="{Binding ActualWidth, ElementName=cutList, Mode=OneWay}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition  />
-                            <ColumnDefinition  />
-                            <ColumnDefinition  />
+                            <ColumnDefinition  Width="*"/>
+                            <ColumnDefinition  Width="*"/>
+                            <ColumnDefinition  Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Text="{Binding Name, ValidatesOnDataErrors=True}" Grid.Column="0" HorizontalAlignment="Stretch" Validation.Error="Save_Error" ></TextBox>
                         <TextBox x:Name="Begin"  Text="{Binding Begin}"  Grid.Column="1" HorizontalAlignment="Center" ToolTip="Respectez le format 00:00:00" Validation.Error="Save_Error"></TextBox>

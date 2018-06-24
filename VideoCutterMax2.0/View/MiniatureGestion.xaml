@@ -30,8 +30,8 @@
                 <Image x:Name="RefreshButton" ></Image>
             </Button>
             <!-- 1/0 -->
-            <Image x:Name="Background" Grid.Row="1"/>
-            <Button Content="Fond" Click="btnOpenBack_Click" CommandParameter=""  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="75" Grid.Row="1" />
+            <Image x:Name="Background" Grid.Row="1" Source="{Binding Background}"/>
+            <Button Content="Fond" Command="{Binding btnOpenBack_Click}"  IsEnabled="{Binding BackgroundButton}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="75" Grid.Row="1" />
 
             <!-- 0/1 -->
             <Grid Grid.Column="1" Grid.RowSpan="2">

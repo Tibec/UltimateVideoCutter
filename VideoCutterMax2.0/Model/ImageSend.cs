@@ -13,12 +13,12 @@ namespace VideoCutterMax2.Model
     {
 
         public WriteableBitmap image;
-        public int[] mult;
+        
 
-        public ImageSend(WriteableBitmap wp, int[] i)
+        public ImageSend(WriteableBitmap wp)
         {
             image = wp;
-            mult = i;
+           
         }
     }
 }

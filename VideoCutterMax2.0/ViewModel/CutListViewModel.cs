@@ -18,7 +18,7 @@ using System.Windows;
 using System.Windows.Threading;
 using System.Diagnostics;
 using System.Drawing;
-
+using System.Drawing.Drawing2D;
 
 
 
@@ -243,9 +243,9 @@ namespace VideoCutterMax2.ViewModel
                     //export thumbnail
                     var thumb_location = video_path + videoName + "/" + Cuts.GetAt(i).Name + ".png";
                     //creation de la thumbnail
-                    var image = GenerateThumb(i);
+                    Bitmap image = GenerateThumb(i);
                     image.Save(thumb_location);
-                   
+                    image.Dispose();
                 }
 
 
@@ -262,71 +262,124 @@ namespace VideoCutterMax2.ViewModel
         private Bitmap GenerateThumb(int selectedRow)
         {
             // chargement de la miniature : on doit parcourir les 2 databases et afficher les perso checked
-
-            var DbCharOne = Cuts.GetAt(selectedRow).Thumbnail.TeamOne.DataBase;
-            var DbCharTwo = Cuts.GetAt(selectedRow).Thumbnail.TeamTwo.DataBase;
+            var TeamOne = Cuts.GetAt(selectedRow).Thumbnail.TeamOne;
+            var TeamTwo = Cuts.GetAt(selectedRow).Thumbnail.TeamTwo;
+            var DbCharOne = TeamOne.DataBase;
+            var DbCharTwo = TeamTwo.DataBase;
 
             // chargement de la miniature : on doit parcourir les 2 databases et afficher les perso checked
-            var temp_image = new Bitmap(Cuts.GetAt(selectedRow).Thumbnail.Background.OriginalString);
+            Bitmap temp_image = new Bitmap(Cuts.GetAt(selectedRow).Thumbnail.Background.OriginalString);
 
-
+            int width = temp_image.Width;
+            int height = temp_image.Height;
+            float sizeChar = width / 38.4F;
             Graphics g = Graphics.FromImage(temp_image);
+            g.InterpolationMode = InterpolationMode.High;
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.CompositingQuality = CompositingQuality.HighQuality;
+
+            //create the outline of the text 
 
 
 
+            System.Drawing.FontFamily f = new System.Drawing.FontFamily("Arial");
+            SolidBrush drawBrush = new SolidBrush(System.Drawing.Color.White);
+            System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Color.Black, 5);
+            PointF drawPoint = new PointF(width / 4 - (TeamOne.TeamName.Length * sizeChar) / 2, height * 3 / 4);
+            GraphicsPath p = new GraphicsPath();
+            //write team name 1
+
+            p.AddString(
+                TeamOne.TeamName,             // text to draw
+                f,  // or any other font family
+                (int)System.Drawing.FontStyle.Regular,
+                g.DpiY * sizeChar / 72,       // em size
+                drawPoint,              // location where to draw text
+                new StringFormat());          // set options here (e.g. center alignment)
+            g.DrawPath(pen, p);
+            g.FillPath(drawBrush, p);
+
+
+            //write team name 2
+            drawPoint.X = temp_image.Width - width / 4 - (TeamTwo.TeamName.Length * sizeChar) / 2;
+            GraphicsPath p2 = new GraphicsPath();
+            //write team name 1
+            p2.AddString(
+                TeamTwo.TeamName,             // text to draw
+                f,  // or any other font family
+                (int)System.Drawing.FontStyle.Regular,
+                g.DpiY * sizeChar / 72,       // em size
+                drawPoint,              // location where to draw text
+                new StringFormat());          // set options here (e.g. center alignment)
+            g.DrawPath(pen, p2);
+            g.FillPath(drawBrush, p2);
 
             //multiplicateur de position
-            int[] mult = { 1, 1 };
-
+            List<int> posTab = new List<int>();
+            // on vérifie une fois le tableau pour savoir combien de cases sont cochées
             for (int i = 0; i < DbCharOne.Count; i++)
             {
                 if (DbCharOne[i].IsPlayed)
                 {
-                    //afficher la miniature a gauche
-
-                    var char_picture = new Bitmap(DbCharOne[i].PictureUri.OriginalString);
-                    System.Diagnostics.Debug.WriteLine(DbCharOne[i].PictureUri.OriginalString);
-
-                    //mise a echelle
-                    var Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(char_picture.Width / 3, char_picture.Height / 3));
-                    Smaller_char.MakeTransparent();
-
-
-                    System.Diagnostics.Debug.WriteLine(Smaller_char.Width);
-                    var rect = new Rectangle(100 * mult[0], 100 * mult[0], Smaller_char.Width, Smaller_char.Height);
-                    mult[0]+=2;
-                    //image.WritePixels(rect, Data.Scan0, Data.Stride,100000);
-                    g.DrawImage(Smaller_char, rect);
+                    posTab.Add(i);
                 }
             }
+            // on parcours la liste des cases cochées
+            for (int i = 0; i < posTab.Count; i++)
+            {
+                Character temp_char = DbCharOne[posTab[i]];
+                int nb_char = posTab.Count;
+                //afficher la miniature a gauche
+                Bitmap char_picture = new Bitmap(temp_char.PictureUri.OriginalString);
+
+
+                //mise a echelle
+                Bitmap Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(char_picture.Width / (nb_char + 1), char_picture.Height / (nb_char + 1)));
+                //Smaller_char.MakeTransparent();
+
+                System.Diagnostics.Debug.WriteLine(Smaller_char.Width);
+                Rectangle rect = new Rectangle(width * (i + 1) / (2 + 2 * nb_char) - Smaller_char.Width / 2, height / 2 - (Smaller_char.Height) * 2 / 3, Smaller_char.Width, Smaller_char.Height);
+                //image.WritePixels(rect, Data.Scan0, Data.Stride,100000);
+                g.DrawImage(Smaller_char, rect);
+
+            }
+
+            posTab.Clear();
+
+            // on vérifie une fois le tableau pour savoir combien de cases sont cochées
             for (int i = 0; i < DbCharTwo.Count; i++)
             {
                 if (DbCharTwo[i].IsPlayed)
                 {
-                    //afficher la miniature a gauche
-
-                    var char_picture = new Bitmap(DbCharTwo[i].PictureUri.OriginalString);
-                    System.Diagnostics.Debug.WriteLine(DbCharTwo[i].PictureUri.OriginalString);
-
-                    //mise a echelle
-                    var Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(char_picture.Width / 3, char_picture.Height / 3));
-                    Smaller_char.MakeTransparent();
-
-
-                    System.Diagnostics.Debug.WriteLine(Smaller_char.Width);
-                    var rect = new Rectangle(temp_image.Width - Smaller_char.Width - (100 * mult[1]), (100 * mult[1]), Smaller_char.Width, Smaller_char.Height);
-                    mult[1]+=2;
-                    //image.WritePixels(rect, Data.Scan0, Data.Stride,100000);
-                    g.DrawImage(Smaller_char, rect);
+                    posTab.Add(i);
                 }
             }
+            // on parcours la liste des cases cochées
+            for (int i = 0; i < posTab.Count; i++)
+            {
+                Character temp_char = DbCharOne[posTab[i]];
+                int nb_char = posTab.Count;
+                //afficher la miniature a gauche
+
+                Bitmap char_picture = new Bitmap(temp_char.PictureUri.OriginalString);
 
 
+                //mise a echelle
+                Bitmap Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(char_picture.Width / (nb_char + 1), char_picture.Height / (nb_char + 1)));
+                //Smaller_char.MakeTransparent();
 
-            // conversion et envoie de la bitmap source
-            //
-           
+                Smaller_char.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                System.Diagnostics.Debug.WriteLine(Smaller_char.Width);
+                Rectangle rect = new Rectangle(width - (width * (i + 1) / (2 + 2 * nb_char)) - Smaller_char.Width / 2, height / 2 - (Smaller_char.Height) * 2 / 3, Smaller_char.Width, Smaller_char.Height);
+                //image.WritePixels(rect, Data.Scan0, Data.Stride,100000);
+                g.DrawImage(Smaller_char, rect);
+
+            }
+            //change pas grand chose
             g.Dispose();
+            //change pas grand chose
+
 
             return temp_image;
         }

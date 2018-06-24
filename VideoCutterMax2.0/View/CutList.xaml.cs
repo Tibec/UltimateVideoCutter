@@ -46,9 +46,13 @@ namespace VideoCutterMax2.View
              */
             System.Diagnostics.Debug.WriteLine("In selection");
             //send a message to the view controler to set the selected index
-            ListIndex listIndex = new ListIndex();
-            listIndex.setValue(cutList.SelectedIndex);
-            Messenger.Default.Send(listIndex);
+            if(cutList.SelectedIndex != -1)
+            {
+                ListIndex listIndex = new ListIndex();
+                listIndex.setValue(cutList.SelectedIndex);
+                Messenger.Default.Send(listIndex);
+            }
+            
 
         }
 
