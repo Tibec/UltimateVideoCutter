@@ -40,8 +40,11 @@ namespace VideoCutterMax2.ViewModel
         public VideoViewerViewModel()
         {
             Cuts = CutDatabase.GetCutDatabase();
-
-        
+            if (Cuts.VideoPath != null){
+                CurrentVideo = new Video(Cuts.VideoPath,"CurrentVideo");
+                IsVideoLoaded = true;
+            }
+            
            
 
             AddBeginCommand = new RelayCommand(() => AddBegin());
@@ -95,7 +98,7 @@ namespace VideoCutterMax2.ViewModel
          */
         private void ResetVideo(Video v)
         {
-            Cuts = CutDatabase.GetCutDatabase();
+            
             Cuts.VideoPath = v.Uri;
             CurrentVideo = v;
             Cuts.ResetCutsDatabase();

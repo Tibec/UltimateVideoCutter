@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VideoCutterMax2.Model
 {
-    class Character : ObservableObject
+    public class Character : ObservableObject
     {
         
         public Uri PictureUri { get; set; }
@@ -18,17 +18,16 @@ namespace VideoCutterMax2.Model
             get { return _isPlayed; }
             set { Set("isPlayed", ref _isPlayed, value); }
         }
+        public Character()
+        {
+
+        }
         public Character(Uri u, String n)
         {
             
             PictureUri = u;
             Name = n;
             IsPlayed = false;
-        }
-        public Character( String n)
-        {
-           
-            Name = n;
         }
     }
 }

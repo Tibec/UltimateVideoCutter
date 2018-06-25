@@ -6,13 +6,15 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Runtime.Serialization.Json;
 using System.Collections.Specialized;
 using VideoCutterMax2.Model;
+using Newtonsoft.Json;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace VideoCutterMax2.Model
 {
-    class CutDatabase
+    public class CutDatabase
     {
         public Uri VideoPath { get; set; }
         public Uri CharacterRessourcesPath;
@@ -34,9 +36,27 @@ namespace VideoCutterMax2.Model
         {
             if(instance == null)
             {
+                //si le fichier de sauvegarde existe on charge le JSON
+                string saveFolderPath = Path.Combine(Directory.GetParent(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)).Parent.Parent.FullName, "Save");
                 instance = new CutDatabase();
-                string resourcesFolderPath = Path.Combine(Directory.GetParent(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)).Parent.Parent.FullName, "Assets");
-                instance.CharacterRessourcesPath = new Uri(resourcesFolderPath + "\\" + "Character_db");
+                System.Diagnostics.Debug.WriteLine(File.Exists(saveFolderPath + "\\instance_param.json"));
+                System.Diagnostics.Debug.WriteLine(File.Exists(saveFolderPath + "\\db_save.json"));
+                if (File.Exists(saveFolderPath + "\\instance_param.json") && File.Exists(saveFolderPath + "\\db_save.json"))
+                {
+
+                    System.Diagnostics.Debug.WriteLine("Lancement load");
+                    
+                    instance.LoadFromJSON(saveFolderPath);
+                }
+                else
+                {
+                    
+                    string resourcesFolderPath = Path.Combine(Directory.GetParent(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)).Parent.Parent.FullName, "Assets");
+                    instance.CharacterRessourcesPath = new Uri(resourcesFolderPath + "\\" + "Character_db");
+                    System.Diagnostics.Debug.WriteLine("Pas load");
+                }
+                
+                
 
             }
             
@@ -90,14 +110,45 @@ namespace VideoCutterMax2.Model
             }
         }
 
-        public void SaveToXml()
+        public void SaveToJSON()
         {
 
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(CutDatabase));
-            using (var writer = new StreamWriter(@"e:\test.xml"))
+            string saveFolderPath = Path.Combine(Directory.GetParent(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)).Parent.Parent.FullName, "Save");
+
+            string json_instance = JsonConvert.SerializeObject(instance, Formatting.Indented);
+            string json_db = JsonConvert.SerializeObject(instance.GetCollection(), Formatting.Indented);
+            System.IO.File.WriteAllText(saveFolderPath + "\\instance_param.json", json_instance);
+            System.IO.File.WriteAllText(saveFolderPath + "\\db_save.json", json_db);
+
+            System.Diagnostics.Debug.WriteLine(json_instance);
+            
+
+        }
+
+        private void LoadFromJSON(string saveFolderPath)
+        {
+            if (File.Exists(saveFolderPath + "\\instance_param.json"))
             {
-                serializer.Serialize(writer, instance);
+                string json_instance = File.ReadAllText(saveFolderPath + "\\instance_param.json");
+                // initialise the instance parameter
+                dynamic results = JsonConvert.DeserializeObject<dynamic>(json_instance);
+                VideoPath = results.VideoPath;
+                CharacterRessourcesPath = results.CharacterRessourcesPath;
             }
+
+            if (File.Exists(saveFolderPath + "\\db_save.json"))
+            {
+                string json_instance = File.ReadAllText(saveFolderPath + "\\db_save.json");
+                // initialise the instance parameter
+                List<Cut> results = JsonConvert.DeserializeObject<List<Cut>>(json_instance);
+                System.Diagnostics.Debug.WriteLine(results[0].Name);
+                _cuts= new ObservableCollection<Cut>(results as List<Cut>);
+
+
+
+            }
+            //fill the db
+            
         }
 
         private void ChangeFolderPath(NotificationMessage m)

@@ -19,11 +19,11 @@
             <MenuItem Header="_Fichier">
                 <MenuItem Header="_Ouvrir vidéo" Click="btnOpenFile_Click" />
                 <MenuItem Header="_Changer de dossier de personnages"  Click="btnChangeFolder_Click"/>
-                <MenuItem Header="_Save"/>
+                <MenuItem Header="_Vider la liste" Click="EmptyCutList"/>
+                <MenuItem Header="_Sauvegarde" Click="SaveList"/>
             </MenuItem>
             <MenuItem Header="_Outils">
-                <MenuItem Header="_Ouvrir"/>
-                <MenuItem Header="_Save"/>
+                <MenuItem Header="_A venir"/>
             </MenuItem>
         </Menu>
         <StackPanel></StackPanel>

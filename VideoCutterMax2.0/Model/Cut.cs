@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VideoCutterMax2.Model
 {
-    class Cut : ObservableObject
+    public class Cut : ObservableObject
     {
         private string _name;
         public string Name

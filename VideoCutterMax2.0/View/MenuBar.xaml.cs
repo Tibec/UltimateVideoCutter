@@ -62,5 +62,39 @@ namespace VideoCutterMax2.View
             }
 
         }
+
+        private void EmptyCutList(object sender, RoutedEventArgs e)
+        {
+
+            MessageBoxResult result = MessageBox.Show("Cette action est irrémédiable. Voulez vous continuer?","Attention!", MessageBoxButton.OKCancel);
+           
+            switch (result)
+            {
+                case MessageBoxResult.OK:
+                    CutDatabase.GetCutDatabase().ResetCutsDatabase();
+                    break;
+                case MessageBoxResult.Cancel:
+                    break;
+            }
+
+
+        }
+
+        private void SaveList(object sender, RoutedEventArgs e)
+        {
+
+            MessageBoxResult result = MessageBox.Show("Cela va supprimer l'ancienne sauvegarde! Voulez vous continuer?", "Attention!", MessageBoxButton.OKCancel);
+
+            switch (result)
+            {
+                case MessageBoxResult.OK:
+                    CutDatabase.GetCutDatabase().SaveToJSON();
+                    break;
+                case MessageBoxResult.Cancel:
+                    break;
+            }
+
+
+        }
     }
 }

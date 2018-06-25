@@ -8,7 +8,7 @@ using System.IO;
 
 namespace VideoCutterMax2.Model
 {
-    class Miniature
+    public class Miniature
     {
         public Uri Background { get; set; }
         public CharacterDataBase TeamOne { get; set; }

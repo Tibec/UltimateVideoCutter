@@ -44,3 +44,6 @@ C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\Microsoft.WindowsAPICodePack.xml
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\Microsoft.WindowsAPICodePack.Shell.xml
 C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\obj\x86\Debug\VideoCutterMax2.0.csprojResolveAssemblyReference.cache
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\Json.NET.Web.dll
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\Newtonsoft.Json.dll
+C:\Users\Raphaël Meier\source\repos\VideoCutterMax2.0\VideoCutterMax2.0\bin\x86\Debug\Newtonsoft.Json.xml

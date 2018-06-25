@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight;
 
 namespace VideoCutterMax2.Model
 {
-    class CharacterDataBase : ObservableObject
+    public class CharacterDataBase : ObservableObject
     {
         public List<Character> DataBase = new List<Character>();
 

@@ -210,12 +210,14 @@ namespace VideoCutterMax2.ViewModel
                int nb_char = posTab.Count;
                //afficher la miniature a gauche
                Bitmap char_picture = new Bitmap(temp_char.PictureUri.OriginalString);
-              
 
-               //mise a echelle
-               Bitmap Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(char_picture.Width / (nb_char + 1), char_picture.Height / (nb_char + 1)));
-               //Smaller_char.MakeTransparent();
                
+                //mise a echelle
+                int newWidth = (int)((char_picture.Width / (nb_char + 1)) * ((float)width / 1920));
+                int newHeight = (int)((char_picture.Height / (nb_char + 1)) * ((float)width / 1920));
+                Bitmap Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(newWidth, newHeight));
+                //Smaller_char.MakeTransparent();
+                
                System.Diagnostics.Debug.WriteLine(Smaller_char.Width);
                Rectangle rect = new Rectangle(width * (i + 1) / (2 + 2*nb_char) - Smaller_char.Width/2 , height/2 - (Smaller_char.Height) * 2/3, Smaller_char.Width, Smaller_char.Height);
                //image.WritePixels(rect, Data.Scan0, Data.Stride,100000);
@@ -241,10 +243,9 @@ namespace VideoCutterMax2.ViewModel
                 //afficher la miniature a gauche
 
                 Bitmap char_picture = new Bitmap(temp_char.PictureUri.OriginalString);
-                
-
-                //mise a echelle
-                Bitmap Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(char_picture.Width / (nb_char + 1), char_picture.Height / (nb_char + 1)));
+                int newWidth = (int)((char_picture.Width / (nb_char + 1)) * ((float)width / 1920));
+                int newHeight = (int)((char_picture.Height / (nb_char + 1)) * ((float)width / 1920));
+                Bitmap Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(newWidth, newHeight));
                 //Smaller_char.MakeTransparent();
 
                 Smaller_char.RotateFlip(RotateFlipType.RotateNoneFlipX);
@@ -256,6 +257,8 @@ namespace VideoCutterMax2.ViewModel
             }
             //change pas grand chose
             g.Dispose();
+
+
             IntPtr hBitmap = temp_image.GetHbitmap();
             try
             {
@@ -384,7 +387,7 @@ namespace VideoCutterMax2.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("La taille de l'image doit être supérieur à une résolution de 1920x1080");
+                    MessageBox.Show("L'image doit être en 16:9");
                 }
             }
 
@@ -395,11 +398,13 @@ namespace VideoCutterMax2.ViewModel
             var fileSizeInBytes = new FileInfo(filename).Length;
             using (var img = new Bitmap(filename))
             {
-                if (img.Width < limitWidth || img.Height < limitHeight) return false;
-            }
+                if ((int)(img.Width / img.Height) == (int)16/9 ) return true;
+            } 
 
-            return true;
+            return false;
         }
+
+
 
 
     }

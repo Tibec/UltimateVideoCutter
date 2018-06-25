@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using VideoCutterMax2.Model;
 
 namespace VideoCutterMax2
 {
@@ -13,5 +14,12 @@ namespace VideoCutterMax2
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            
+            CutDatabase.GetCutDatabase().SaveToJSON();
+        }
+
+
     }
 }

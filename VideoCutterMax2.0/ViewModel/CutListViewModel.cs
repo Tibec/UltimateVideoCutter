@@ -333,9 +333,11 @@ namespace VideoCutterMax2.ViewModel
                 //afficher la miniature a gauche
                 Bitmap char_picture = new Bitmap(temp_char.PictureUri.OriginalString);
 
-
+                Debug.WriteLine((float)width / 1920);
                 //mise a echelle
-                Bitmap Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(char_picture.Width / (nb_char + 1), char_picture.Height / (nb_char + 1)));
+                int newWidth = (int)((char_picture.Width / (nb_char + 1)) * ((float)width / 1920));
+                int newHeight = (int)((char_picture.Height / (nb_char + 1)) * ((float)width / 1920));
+                Bitmap Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(newWidth, newHeight));
                 //Smaller_char.MakeTransparent();
 
                 System.Diagnostics.Debug.WriteLine(Smaller_char.Width);
