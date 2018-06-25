@@ -114,11 +114,13 @@ namespace VideoCutterMax2.ViewModel
             {
 
                 var thumb = Cuts.GetAt(selectedRow).Thumbnail;
-                TeamOne = thumb.TeamOne;
-                TeamTwo = thumb.TeamTwo;
-                DbCharOne = TeamOne.DataBase;
-                DbCharTwo = TeamTwo.DataBase;
-                
+                TeamOne = Cuts.GetAt(selectedRow).Thumbnail.TeamOne;
+                TeamTwo = Cuts.GetAt(selectedRow).Thumbnail.TeamTwo;
+                DbCharOne = Cuts.GetAt(selectedRow).Thumbnail.TeamOne.DataBase;
+                DbCharTwo = Cuts.GetAt(selectedRow).Thumbnail.TeamTwo.DataBase;
+                Debug.WriteLine(Cuts.GetAt(selectedRow).Thumbnail.TeamOne.DataBase[0].Name);
+                Debug.WriteLine(Cuts.GetAt(selectedRow).Thumbnail.TeamOne.DataBase[0].IsPlayed);
+
                 Background = new BitmapImage(thumb.Background);
                 ResetPreview();
             }
@@ -200,7 +202,11 @@ namespace VideoCutterMax2.ViewModel
             {
                 if (DbCharOne[i].IsPlayed)
                 {
-                   posTab.Add(i);
+                    posTab.Add(i);
+                    
+                    Debug.Write(Cuts.GetAt(selectedRow).Thumbnail.TeamOne.DataBase[i].Name + ": ");
+                    Debug.WriteLine(Cuts.GetAt(selectedRow).Thumbnail.TeamOne.DataBase[i].IsPlayed);  
+
                 }
             }
             // on parcours la liste des cases cochées
@@ -218,7 +224,7 @@ namespace VideoCutterMax2.ViewModel
                 Bitmap Smaller_char = new Bitmap(char_picture, new System.Drawing.Size(newWidth, newHeight));
                 //Smaller_char.MakeTransparent();
                 
-               System.Diagnostics.Debug.WriteLine(Smaller_char.Width);
+               
                Rectangle rect = new Rectangle(width * (i + 1) / (2 + 2*nb_char) - Smaller_char.Width/2 , height/2 - (Smaller_char.Height) * 2/3, Smaller_char.Width, Smaller_char.Height);
                //image.WritePixels(rect, Data.Scan0, Data.Stride,100000);
                g.DrawImage(Smaller_char, rect);
@@ -249,7 +255,8 @@ namespace VideoCutterMax2.ViewModel
                 //Smaller_char.MakeTransparent();
 
                 Smaller_char.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                System.Diagnostics.Debug.WriteLine(Smaller_char.Width);
+               
+
                 Rectangle rect = new Rectangle(width - (width * (i + 1) / (2 + 2 * nb_char)) - Smaller_char.Width / 2, height / 2 - (Smaller_char.Height) * 2 / 3, Smaller_char.Width, Smaller_char.Height);
                 //image.WritePixels(rect, Data.Scan0, Data.Stride,100000);
                 g.DrawImage(Smaller_char, rect);
@@ -381,7 +388,7 @@ namespace VideoCutterMax2.ViewModel
                 if (ValidFile(openFileDialog.FileName, 1920, 1080))
                 {
 
-                    Debug.WriteLine(selectedRow);
+                    
                     Cuts.GetAt(selectedRow).Thumbnail.Background = new Uri(openFileDialog.FileName);
                     Background = new BitmapImage(new Uri(openFileDialog.FileName));
                 }

@@ -24,17 +24,21 @@ namespace VideoCutterMax2.Model
 
             var tempDB = CutDatabase.GetCutDatabase();
             /* Parcours du fichier de personnages */
-            
-            
-            foreach (string png in Directory.GetFiles(tempDB.CharacterRessourcesPath.OriginalString, "*.png"))
+
+            if (tempDB.VideoPath == null )
             {
-                 
-                string name = png.Split('\\').Last();
-                name = name.Split('(')[0];       
-                DataBase.Add(new Character(new Uri(png),name));
-                
+                foreach (string png in Directory.GetFiles(tempDB.CharacterRessourcesPath.OriginalString, "*.png"))
+                {
+
+                    string name = png.Split('\\').Last();
+                    name = name.Split('(')[0];
+                    DataBase.Add(new Character(new Uri(png), name));
+
+                }
+                TeamName = "Equipe";
             }
-            TeamName = "Equipe";
+            
+            
         }
 
         public CharacterDataBase(string resourcesFolderPath)

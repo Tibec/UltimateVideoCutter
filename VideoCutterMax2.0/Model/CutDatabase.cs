@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Json;
 using System.Collections.Specialized;
 using VideoCutterMax2.Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace VideoCutterMax2.Model
@@ -141,8 +142,18 @@ namespace VideoCutterMax2.Model
                 string json_instance = File.ReadAllText(saveFolderPath + "\\db_save.json");
                 // initialise the instance parameter
                 List<Cut> results = JsonConvert.DeserializeObject<List<Cut>>(json_instance);
-                System.Diagnostics.Debug.WriteLine(results[0].Name);
+                
                 _cuts= new ObservableCollection<Cut>(results as List<Cut>);
+                System.Diagnostics.Debug.Write(_cuts[0].Thumbnail.TeamOne.DataBase[0].Name);
+                System.Diagnostics.Debug.WriteLine(_cuts[0].Thumbnail.TeamOne.DataBase[0].IsPlayed);
+              /*  JObject o = JObject.Parse(json_instance);
+                foreach (var item in o)
+                {
+                    var single = item.Value.ToString();
+                    var nodeValues = JsonConvert.DeserializeObject<List<CharacterDataBase>>(single);
+                    // here do what you want to do for each root elements
+                    System.Diagnostics.Debug.WriteLine(nodeValues);
+                } */
 
 
 

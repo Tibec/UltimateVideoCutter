@@ -51,6 +51,11 @@ namespace VideoCutterMax2.ViewModel
             ExportCommand = new RelayCommand(() => Export());
             Messenger.Default.Register<ListIndex>(this, SetSelectedRow);
             Messenger.Default.Register<NotificationMessage>(this, UpdateExport);
+
+            if (Cuts.VideoPath != null)
+            {
+                IsExportable = true;
+            }
         }
 
       
